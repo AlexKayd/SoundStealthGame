@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class MapGenerator : MonoBehaviour
                 );
 
                 GameObject tile = Instantiate(tilePrefab, pos, Quaternion.identity);
+                tile.isStatic = true;
 
                 int typeIndex = Random.Range(0, surfaceTags.Length);
                 string tag = surfaceTags[typeIndex];
@@ -48,5 +50,12 @@ public class MapGenerator : MonoBehaviour
                 tile.name = tag + "_" + x + "_" + z;
             }
         }
+
+        // запекаем навигацию
+        NavMeshSurface surface = FindObjectOfType<NavMeshSurface>();
+        if (surface != null)
+            surface.BuildNavMesh();
+        else
+            Debug.LogError("NavMeshSurface не найден");
     }
 }
