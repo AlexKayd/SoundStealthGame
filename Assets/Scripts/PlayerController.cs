@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float CurrentVolume { get; private set; }
 
     private float currentSpeed;
+    private Animator animator;
 
     void Start()
     {
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
         CurrentSurfaceTag = "Wood";
         CurrentPitch = 1.0f;
         CurrentVolume = 0.5f;
+
+        animator = GetComponentInChildren<Animator>();
 
         Vector3 pos = transform.position;
         pos.y = 1.5f;
@@ -39,6 +42,13 @@ public class PlayerController : MonoBehaviour
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && move.magnitude > 0.1f;
         currentSpeed = isRunning ? runSpeed : walkSpeed;
+
+        Debug.Log("move.magnitude=" + move.magnitude + " currentSpeed=" + currentSpeed + " итог=" + (move.magnitude * currentSpeed));
+
+        if (animator != null)
+            animator.SetFloat("Speed", move.magnitude * currentSpeed);
+        else
+            Debug.LogWarning("Animator не найден");
 
         transform.Translate(move.normalized * currentSpeed * Time.deltaTime, Space.World);
 
