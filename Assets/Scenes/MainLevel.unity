@@ -466,6 +466,7 @@ MonoBehaviour:
   tileSpacing: 4.001
   tilePrefab: {fileID: 7479174964832786643, guid: bc2258a3c2b940a4d8176a2803f8ed03, type: 3}
   tileMaterial: {fileID: 2100000, guid: a49f4d74209af07458c08a3ae24bd9a7, type: 2}
+  playerTransform: {fileID: 1520887852}
 --- !u!4 &1481136793
 Transform:
   m_ObjectHideFlags: 0
@@ -493,6 +494,8 @@ GameObject:
   - component: {fileID: 1520887851}
   - component: {fileID: 1520887850}
   - component: {fileID: 1520887853}
+  - component: {fileID: 1520887854}
+  - component: {fileID: 1520887855}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -566,7 +569,7 @@ Transform:
   m_GameObject: {fileID: 1520887848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.71464, y: -0, z: -9.43275}
+  m_LocalPosition: {x: -3.71464, y: 0.1, z: -9.43275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -585,9 +588,105 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909d1911f60e81745bf33a18cf0c3f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 2
-  runSpeed: 4
-  groundCheckDistance: 0.3
+  walkSpeed: 3
+  runSpeed: 6
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckDistance: 5
+  heightAboveGround: 0.1
+--- !u!114 &1520887854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520887848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b693fb982430b445ab8d440702f25d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundWaveSpawner
+  wavePrefab: {fileID: 5440579492888241565, guid: 87413092786934c4d909d1eb2989a190, type: 3}
+  footstepClip: {fileID: 0}
+  walkRadius: 3
+  runRadius: 6
+  emitInterval: 0.5
+  zombieLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!136 &1520887855
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520887848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!1 &1705142571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705142573}
+  - component: {fileID: 1705142572}
+  m_Layer: 0
+  m_Name: TestSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1705142572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705142571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c4e57b7c9122848943b9d53438a778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestSound
+  wavePrefab: {fileID: 5440579492888241565, guid: 87413092786934c4d909d1eb2989a190, type: 3}
+  testRadius: 5
+  zombieLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!4 &1705142573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705142571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.15351, y: 0, z: -13.48208}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1949614056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,7 +832,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 62ae4d0e60820394ea7174769fd34acc, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1964595385
 Transform:
@@ -814,3 +913,4 @@ SceneRoots:
   - {fileID: 1520887852}
   - {fileID: 1964595385}
   - {fileID: 2053035281}
+  - {fileID: 1705142573}

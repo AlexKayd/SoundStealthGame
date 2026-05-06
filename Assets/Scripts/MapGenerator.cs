@@ -14,6 +14,9 @@ public class MapGenerator : MonoBehaviour
     [Header("Материал")]
     public Material tileMaterial;
 
+    [Header("Игрок")]
+    public Transform playerTransform;
+
     private string[] surfaceTags = { "Earth", "Wood", "Metal" };
 
     void Start()
@@ -57,5 +60,16 @@ public class MapGenerator : MonoBehaviour
             surface.BuildNavMesh();
         else
             Debug.LogError("NavMeshSurface не найден");
+
+        // Установка игрока в центр первого ряда
+        if (playerTransform != null)
+        {
+            int centerX = gridWidth / 2;
+            float startX = centerX * tileSpacing - (gridWidth * tileSpacing) / 2f;
+            float startZ = 0 * tileSpacing - (gridHeight * tileSpacing) / 2f;
+            Vector3 startPos = new Vector3(startX, 1.5f, startZ);
+            playerTransform.position = startPos;
+            PlayerController pc = playerTransform.GetComponent<PlayerController>();
+        }
     }
 }
