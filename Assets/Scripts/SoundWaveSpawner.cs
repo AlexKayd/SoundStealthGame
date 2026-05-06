@@ -13,6 +13,7 @@ public class SoundWaveSpawner : MonoBehaviour
     public float walkRadius = 3f;
     public float runRadius = 6f; 
     public float emitInterval = 0.5f;
+    public float runEmitInterval = 0.3f; // интервал между шагами при беге
 
     [Header("Слой зомби")]
     public LayerMask zombieLayer = -1;
@@ -33,7 +34,11 @@ public class SoundWaveSpawner : MonoBehaviour
         if (IsMoving() && Time.time >= nextEmitTime)
         {
             EmitWave(); // создаём волну
-            nextEmitTime = Time.time + emitInterval;
+
+            // какой интервал использовать
+            bool running = Input.GetKey(KeyCode.LeftShift);
+            float currentInterval = running ? runEmitInterval : emitInterval;
+            nextEmitTime = Time.time + currentInterval;
         }
     }
 

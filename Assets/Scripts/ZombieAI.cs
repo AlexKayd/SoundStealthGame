@@ -21,7 +21,7 @@ public class ZombieAI : MonoBehaviour
         if (agent != null && animator != null)
         {
             if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
-                animator.SetFloat("Speed", 0f); // Idle
+                animator.SetFloat("Speed", 0f);
             else
                 animator.SetFloat("Speed", agent.speed);
         }

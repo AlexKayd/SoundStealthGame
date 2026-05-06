@@ -4,7 +4,7 @@ using UnityEngine.VFX;
 public class TestSound : MonoBehaviour
 {
     public GameObject wavePrefab;
-    public float testRadius = 10f; // Увеличили радиус
+    public float testRadius = 10f; // увеличили радиус
     public LayerMask zombieLayer = -1;
 
     void Update()
@@ -19,7 +19,7 @@ public class TestSound : MonoBehaviour
             if (vfx != null)
             {
                 vfx.SetFloat("Radius", testRadius);
-                vfx.Play(); // Принудительный запуск (иногда требуется)
+                vfx.Play(); // принудительный запуск
                 Debug.Log("VFX запущен с радиусом " + testRadius);
             }
             else
@@ -39,7 +39,7 @@ public class TestSound : MonoBehaviour
                 }
             }
 
-            Destroy(wave, 2f); // Дадим волне пожить подольше
+            Destroy(wave, 2f);
         }
     }
 }

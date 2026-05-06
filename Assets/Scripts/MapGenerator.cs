@@ -61,7 +61,7 @@ public class MapGenerator : MonoBehaviour
         else
             Debug.LogError("NavMeshSurface не найден");
 
-        // Установка игрока в центр первого ряда
+        // установка игрока в центр первого ряда
         if (playerTransform != null)
         {
             int centerX = gridWidth / 2;

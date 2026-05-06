@@ -608,10 +608,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundWaveSpawner
   wavePrefab: {fileID: 5533264621533570097, guid: 78a12860789a1824dba95be5a4244075, type: 3}
-  footstepClip: {fileID: 0}
+  footstepClip: {fileID: 8300000, guid: 6ab57f4cab6f45d4f99bf73e00840ba6, type: 3}
   walkRadius: 3
   runRadius: 6
-  emitInterval: 0.5
+  emitInterval: 0.4
+  runEmitInterval: 0.3
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64
