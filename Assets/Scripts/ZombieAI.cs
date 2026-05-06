@@ -6,10 +6,18 @@ public class ZombieAI : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
 
+    [Header("Настройки поимки")]
+    public float catchDistance = 1.5f;
+    private Transform player;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
 
         if (animator != null)
             animator.SetFloat("Speed", 0f);
@@ -17,7 +25,18 @@ public class ZombieAI : MonoBehaviour
 
     void Update()
     {
-        // достиг ли точки назначения
+        // проверка поимки
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+            if (distance <= catchDistance)
+            {
+                GameManager.Instance?.LoseGame();
+                return;
+            }
+        }
+
+        // анимация
         if (agent != null && animator != null)
         {
             if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
@@ -29,8 +48,7 @@ public class ZombieAI : MonoBehaviour
 
     public void OnSoundHeard(Vector3 soundSource)
     {
-        if (agent == null || !agent.isActiveAndEnabled)
-            return;
+        if (agent == null || !agent.isActiveAndEnabled) return;
 
         RaycastHit hit;
         if (Physics.Raycast(soundSource + Vector3.up * 2f, Vector3.down, out hit, 5f))
