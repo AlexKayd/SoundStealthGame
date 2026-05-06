@@ -15,17 +15,26 @@ public class PlayerController : MonoBehaviour
     public float CurrentPitch { get; private set; }
     public float CurrentVolume { get; private set; }
 
+    private CharacterController controller;
     private float currentSpeed;
     private Animator animator;
 
     void Start()
     {
-        // начальные значения
+        controller = GetComponent<CharacterController>();
+        if (controller == null)
+        {
+            controller = gameObject.AddComponent<CharacterController>();
+            controller.center = new Vector3(0, 1, 0);
+            controller.radius = 0.5f;
+            controller.height = 2f;
+        }
+
+        animator = GetComponentInChildren<Animator>();
+
         CurrentSurfaceTag = "Wood";
         CurrentPitch = 1.0f;
         CurrentVolume = 0.5f;
-
-        animator = GetComponentInChildren<Animator>();
 
         SnapToGround();
     }
@@ -44,7 +53,9 @@ public class PlayerController : MonoBehaviour
         else
             Debug.LogWarning("Animator не найден");
 
-        transform.Translate(move.normalized * currentSpeed * Time.deltaTime, Space.World);
+        Vector3 motion = move.normalized * currentSpeed;
+        motion.y = -2f;
+        controller.Move(motion * Time.deltaTime);
 
         SnapToGround();
     }
@@ -52,6 +63,8 @@ public class PlayerController : MonoBehaviour
     void SnapToGround()
     {
         Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
+        Debug.DrawRay(ray.origin, Vector3.down * groundCheckDistance, Color.red);
+
         if (Physics.Raycast(ray, out RaycastHit hit, groundCheckDistance, groundMask))
         {
             string tag = hit.collider.tag;
@@ -64,11 +77,11 @@ public class PlayerController : MonoBehaviour
                     case "Earth": CurrentPitch = 0.7f; CurrentVolume = 0.5f; break;
                     case "Metal": CurrentPitch = 1.3f; CurrentVolume = 1.0f; break;
                 }
-
-                Vector3 pos = transform.position;
-                pos.y = hit.point.y + heightAboveGround;
-                transform.position = pos;
             }
+
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y + heightAboveGround;
+            transform.position = pos;
         }
     }
 }
