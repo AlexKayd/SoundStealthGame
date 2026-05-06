@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b693fb982430b445ab8d440702f25d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundWaveSpawner
-  wavePrefab: {fileID: 5440579492888241565, guid: 87413092786934c4d909d1eb2989a190, type: 3}
+  wavePrefab: {fileID: 5533264621533570097, guid: 78a12860789a1824dba95be5a4244075, type: 3}
   footstepClip: {fileID: 0}
   walkRadius: 3
   runRadius: 6

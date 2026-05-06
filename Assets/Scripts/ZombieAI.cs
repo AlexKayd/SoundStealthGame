@@ -15,6 +15,18 @@ public class ZombieAI : MonoBehaviour
             animator.SetFloat("Speed", 0f);
     }
 
+    void Update()
+    {
+        // достиг ли точки назначения
+        if (agent != null && animator != null)
+        {
+            if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
+                animator.SetFloat("Speed", 0f); // Idle
+            else
+                animator.SetFloat("Speed", agent.speed);
+        }
+    }
+
     public void OnSoundHeard(Vector3 soundSource)
     {
         if (agent == null || !agent.isActiveAndEnabled)

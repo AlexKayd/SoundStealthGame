@@ -58,20 +58,20 @@ public class SoundWaveSpawner : MonoBehaviour
         Vector3 spawnPos = transform.position;
         spawnPos.y += 0.2f;
 
-        // создаём копию префаба волны
         GameObject wave = Instantiate(wavePrefab, spawnPos, Quaternion.identity);
-        VisualEffect vfx = wave.GetComponent<VisualEffect>();
-        if (vfx != null)
+
+        RingController ring = wave.GetComponent<RingController>();
+        if (ring != null)
         {
-            vfx.SetFloat("Radius", radius);
+            ring.Init(radius);
         }
 
         // проигрываем звук шага
         AudioSource audio = wave.GetComponent<AudioSource>();
         if (audio != null && footstepClip != null)
         {
-            audio.pitch = pitch;    // меняем высоту звука в зависимости от пола
-            audio.volume = volume;  // меняем громкость
+            audio.pitch = pitch;
+            audio.volume = volume;
             audio.PlayOneShot(footstepClip);
         }
 
